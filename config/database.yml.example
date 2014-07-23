@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: project_development
   host: localhost
-  username: gschool
+  username:
   password:
 
 test:
@@ -12,5 +12,5 @@ test:
   database: project_test
   pool: 5
   host: localhost
-  username: gschool
+  username:
   password:
