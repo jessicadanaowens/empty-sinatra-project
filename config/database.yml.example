@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: project_development
+  host: localhost
+  username: gschool
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: project_test
+  pool: 5
+  host: localhost
+  username: gschool
+  password:
