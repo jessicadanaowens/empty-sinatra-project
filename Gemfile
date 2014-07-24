@@ -10,6 +10,7 @@ gem 'pg'
 gem 'sass'
 gem 'compass'
 gem 'susy'
+gem 'sinatra-partial'
 
 
 group :test, :development do
