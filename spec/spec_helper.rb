@@ -1,5 +1,4 @@
-require 'dotenv'
-Dotenv.load
+
 require_relative "./../app"
 require "capybara/rspec"
 require "database_cleaner"

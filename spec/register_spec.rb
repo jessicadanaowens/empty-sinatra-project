@@ -27,7 +27,7 @@ feature "User can register and login" do
     fill_in "Repeat Password", :with => "password"
     click_on "Register/Login"
 
-    expect(page).to have_content("username is already taken")
+    expect(page).to have_content("Username is already taken")
 
     #user can login with a registered username and password
 
@@ -70,7 +70,7 @@ feature "User can register and login" do
     fill_in "Repeat Password", :with => "pass"
     click_on "Register/Login"
 
-    expect(page).to have_content("passwords must match")
+    expect(page).to have_content("Password must match other password")
   end
 
 
