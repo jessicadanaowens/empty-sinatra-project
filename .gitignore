@@ -1,2 +1,5 @@
 config/database.yml
 .sass-cache/
+idea/
+*.iml
+.bundle/

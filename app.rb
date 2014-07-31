@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'rack-flash'
 require 'sinatra/reloader'
 require 'sinatra/partial'
+require 'gschool_database_connection'
 
 # include all .rb files in models directory
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| require file }
@@ -23,6 +24,11 @@ class App < Sinatra::Application
   #use reloader in development
   configure :development do
     register Sinatra::Reloader
+  end
+
+  def initialize
+    super
+    GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"])
   end
 
   get "/" do

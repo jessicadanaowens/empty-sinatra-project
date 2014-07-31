@@ -11,6 +11,7 @@ gem 'sass'
 gem 'compass'
 gem 'susy'
 gem 'sinatra-partial'
+gem 'gschool_database_connection'
 
 
 group :test, :development do

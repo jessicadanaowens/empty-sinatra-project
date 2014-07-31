@@ -1,16 +1,16 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: project_development
+  database: frameit
   host: localhost
-  username:
+  username:gschool
   password:
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: project_test
+  database: frameit_test
   pool: 5
   host: localhost
-  username:
+  username:gschool
   password:
