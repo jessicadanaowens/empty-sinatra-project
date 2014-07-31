@@ -86,18 +86,14 @@ class App < Sinatra::Application
   end
 
   post "/photos" do
+
     image_data = params[:Image]
     filename = image_data[:filename]
     tempfile = image_data[:tempfile].to_s
 
+    Photo.upload(session[:id], filename, tempfile)
 
-    Photo.create(
-      :user_id=>User.user_id(session[:id]),
-      :filename=>filename,
-      :tempfile=>tempfile
-    )
-
-
+  
 
   end
 
