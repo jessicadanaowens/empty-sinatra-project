@@ -1,0 +1,27 @@
+<div class="login_register_box">
+
+  <form enctype="multipart/form-data" action="/photos" method="post">
+    <input type="file" name="Image">
+    <input type="submit" value="upload">
+  </form>
+
+  <% if @pictures %>
+
+    <% @pictures.each do |picture| %>
+      <img src="<%=picture.path%>"
+           id="image">
+
+      <form method="post" action="/uploads/<%= picture.id %>">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" value="Delete Picture"/>
+      </form>
+
+      <form method="post" action="/select/<%= picture.id %>">
+        <input id=select name=select type=submit value=Select>
+      </form>
+
+    <% end %>
+
+  <% end %>
+
+</div>

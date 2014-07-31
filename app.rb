@@ -85,7 +85,25 @@ class App < Sinatra::Application
     end
   end
 
+  post "/photos" do
+    image_data = params[:Image]
+    filename = image_data[:filename]
+    tempfile = image_data[:tempfile].to_s
+
+
+    Photo.create(
+      :user_id=>User.user_id(session[:id]),
+      :filename=>filename,
+      :tempfile=>tempfile
+    )
+
+
+
+  end
+
   private
+
+
 
   def welcome_user
     name = User.find_by_password(params[:username], params[:password]).username

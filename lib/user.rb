@@ -26,4 +26,10 @@ class User < ActiveRecord::Base
     ).first
   end
 
+  def self.user_id(session_id)
+    User.where(
+      :id=>session_id
+    ).select(:id)
+  end
+
 end
