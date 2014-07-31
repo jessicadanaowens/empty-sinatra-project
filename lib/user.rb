@@ -13,4 +13,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.find_by_username(username)
+    User.where(
+      :username=>"#{username}"
+    ).first
+  end
+
+  def self.find_by_password(username, password)
+    User.where(
+      :username=>"#{username}",
+      :password=>"#{password}"
+    ).first
+  end
+
 end

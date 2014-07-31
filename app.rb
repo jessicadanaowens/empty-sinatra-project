@@ -68,15 +68,18 @@ class App < Sinatra::Application
   end
 
   post "/login" do
-    if username == nil
+    if User.find_by_username(params[:username]) == nil
       flash[:notice] = "Username doesn't exist"
       redirect '/'
     elsif
-    password == nil
+    User.find_by_password(params[:username], params[:password]) == nil
       flash[:notice] = "Password is incorrect"
       redirect '/'
     else
-      session[:id] = password.id
+      session[:id] = User.find_by_password(params[:username], params[:password]).id
+      puts "*" * 80
+      puts User.find_by_password(params[:username], params[:password])
+      puts "*" * 80
       welcome_user
       redirect "/"
     end
@@ -84,22 +87,11 @@ class App < Sinatra::Application
 
   private
 
-
-  def username
-    User.where(
-    :username=>"#{params[:username]}"
-    ).first
-  end
-
-  def password
-    User.where(
-      :username=>"#{params[:username]}",
-      :password=>"#{params[:password]}"
-    ).first
-  end
-
   def welcome_user
-    flash[:notice] = "Welcome, #{password.username}"
+    name = User.find_by_password(params[:username], params[:password]).username
+    if name
+      flash[:notice] = "Welcome, #{name}"
+    end
   end
 
 end
