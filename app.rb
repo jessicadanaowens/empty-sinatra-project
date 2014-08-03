@@ -4,6 +4,7 @@ require 'rack-flash'
 require 'sinatra/reloader'
 require 'sinatra/partial'
 require 'gschool_database_connection'
+require 'aws-sdk'
 
 # include all .rb files in models directory
 Dir['./lib/*.rb'].each { |file| require file }
@@ -29,10 +30,16 @@ class App < Sinatra::Application
   def initialize
     super
     GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"])
+
   end
 
   get "/" do
     if session[:id]
+
+      @photos = Photo.where(
+        :user_id => session[:id]
+      )
+
       erb :logged_in
     else
       erb :index
@@ -77,9 +84,6 @@ class App < Sinatra::Application
       redirect '/'
     else
       session[:id] = User.find_by_password(params[:username], params[:password]).id
-      puts "*" * 80
-      puts User.find_by_password(params[:username], params[:password])
-      puts "*" * 80
       welcome_user
       redirect "/"
     end
@@ -87,19 +91,41 @@ class App < Sinatra::Application
 
   post "/photos" do
 
-    image_data = params[:Image]
-    filename = image_data[:filename]
-    tempfile = image_data[:tempfile].to_s
+    image = params[:Image]
+    filename = image[:filename]
 
-    Photo.upload(session[:id], filename, tempfile)
+    s3_url = S3_file.new(image).path.to_s
 
-  
+    Photo.new.upload(session[:id], filename, s3_url)
+
+    S3_file.new(image).write
+    redirect "/"
+  end
+
+  get "/photos/:id" do
+    @s3_url = Photo.where(
+      :id => params[:id]
+    ).first.tempfile
+    erb :work_table
+  end
+
+  delete "/photos/:id" do
+
+    photo = Photo.where(
+      :id => params[:id]
+    ).first.filename
+
+    S3_file_delete.new(photo).delete
+
+    Photo.where(
+    :id => params[:id]
+    ).first.destroy
+
+    redirect back
 
   end
 
   private
-
-
 
   def welcome_user
     name = User.find_by_password(params[:username], params[:password]).username

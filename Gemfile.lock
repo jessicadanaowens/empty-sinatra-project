@@ -15,6 +15,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    aws-sdk (1.48.1)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     backports (3.6.0)
     builder (3.2.2)
     capybara (2.4.1)
@@ -30,6 +33,9 @@ GEM
       sass (~> 3.1)
     database_cleaner (1.3.0)
     diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
     fssm (0.2.10)
     gschool_database_connection (1.0.0)
       activerecord
@@ -93,9 +99,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   capybara
   compass
   database_cleaner
+  dotenv
   gschool_database_connection
   pg
   rack-flash3

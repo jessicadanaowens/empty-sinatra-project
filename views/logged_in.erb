@@ -5,22 +5,18 @@
     <input type="submit" value="upload">
   </form>
 
-  <% if @pictures %>
+  <% @photos.each do |photo| %>
+    <img src=<%= photo.tempfile %>
+         id="image">
 
-    <% @pictures.each do |picture| %>
-      <img src="<%=picture.path%>"
-           id="image">
+    <form method="post" action="/photos/<%= photo.id %>">
+      <input type="hidden" name="_method" value="delete"/>
+      <input type="submit" value="Delete Picture"/>
+    </form>
 
-      <form method="post" action="/uploads/<%= picture.id %>">
-        <input type="hidden" name="_method" value="delete"/>
-        <input type="submit" value="Delete Picture"/>
-      </form>
-
-      <form method="post" action="/select/<%= picture.id %>">
-        <input id=select name=select type=submit value=Select>
-      </form>
-
-    <% end %>
+    <form action="/photos/<%= photo.id %>" method="get">
+      <input type="submit" value="Select">
+    </form>
 
   <% end %>
 

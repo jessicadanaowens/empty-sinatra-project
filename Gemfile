@@ -12,12 +12,13 @@ gem 'compass'
 gem 'susy'
 gem 'sinatra-partial'
 gem 'gschool_database_connection'
-
+gem 'aws-sdk'
 
 group :test, :development do
   gem 'rspec'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'dotenv'
 end
 
 # gem "rails"

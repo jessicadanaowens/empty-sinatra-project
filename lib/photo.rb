@@ -2,11 +2,11 @@ require "active_record"
 
 class Photo < ActiveRecord::Base
 
-  def self.upload(session_id, filename, tempfile)
+  def upload(session_id, filename, s3_url)
     Photo.create(
-      :user_id=>User.user_id(session_id),
+      :user_id=>session_id,
       :filename=>filename,
-      :tempfile=>tempfile
+      :tempfile=>s3_url
     )
   end
 
